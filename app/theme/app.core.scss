@@ -1,0 +1,92 @@
+// http://ionicframework.com/docs/v2/theming/
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the imports which make up the design of this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+
+@import "../pages/home/home";
+@import "../pages/search/search";
+@import "../pages/bookdetails/bookdetails";
+@import "../pages/watchlist/watchlist";
+@import "../pages/progressmodal/progressmodal";
+;
+.toolbar-background{
+	background: #3F7DE8;
+}
+
+.toolbar-title{;
+	color: white;
+}
+
+.bar-button-default{
+	color: white;
+}
+
+
+.menu-content{
+	background: #bdc3c7; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, #3A546E , #2c3e50); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to left, #3A546E , #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.menu-content {
+	
+	.menu-button{
+		background: #bdc3c7; /* fallback for old browsers */
+		background: -webkit-linear-gradient(to left, #3A546E , #2c3e50); /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to left, #3A546E , #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		color:white;
+		padding-top:3px;
+		padding-left: 20px;
+		border: 0px !important;
+	    border-bottom-color: transparent !important;
+	    background-image: none !important;
+	    border-bottom: none !important;
+	    font-size: 1.2em;
+	}
+
+	.menu-list{
+		position : absolute;
+		top : 30%;
+		width : 100%;
+	}
+	.other-list{
+		position : absolute;
+		top : 88%;
+		width : 100%;
+	}
+	.toolbar-title{
+		color : white;
+	}
+	.item .item-inner{
+	 	border-bottom : none!important;
+	}
+
+	.bar-button-default{
+		color : white;
+	}
+
+	.menu-picture{
+		 display:block;
+		 margin-left:auto;
+		 margin-right:auto;
+		 margin-top:35px;
+		 border-radius: 50%;
+		 border: 2px #ffffff solid;
+		 height: 80px;
+		 width: 25%;
+		 background: white;
+	}
+
+	.spacer{
+		background: #bdc3c7; /* fallback for old browsers */
+		background: -webkit-linear-gradient(to left, #3A546E , #2c3e50); /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to left, #3A546E , #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	}
+
+}
+
+
+

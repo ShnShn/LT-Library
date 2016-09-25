@@ -1,0 +1,48 @@
+.content{
+
+	.card-title{
+		font-size: 1.1em;
+	}
+	.card-author{
+		font-size: 0.9em;
+		padding-top:2px;
+	}
+
+	ion-card-content{
+	    text-align: justify;
+	    font-size: 0.9em;
+	}
+
+	button{
+		font-size:0.8em;
+	}
+
+	.text-center{
+		position: absolute;
+	 	top: 43%;
+	 	left: 34%;
+	    font-size: 2.5em;
+	}
+
+	.no-item{
+			color: #CFD3D4!important;
+	}
+
+	.action-sheets-basic-page {
+	
+	  .ion-md-list {
+	    color: #ED4248;
+	  }
+	  .ion-md-arrow-dropright-circle {
+	    color: #508AE4;
+	  }
+	  .ion-md-heart-outline {
+	    color: #31D55F;
+	  }
+	  .action-sheet-cancel ion-icon,
+	  .action-sheet-destructive ion-icon {
+	    color: #757575;
+	
+	  }
+	}
+}

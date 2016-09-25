@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/3b34ceb1f4a835b1aa2915093f5a24ad66897928/gapi.auth2/gapi.auth2.d.ts",
+    "raw": "registry:dt/gapi.auth2#0.0.0+20160602144801",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/3b34ceb1f4a835b1aa2915093f5a24ad66897928/gapi.auth2/gapi.auth2.d.ts"
+  }
+}

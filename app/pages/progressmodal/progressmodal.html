@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Set Progress</ion-title>
+     <ion-buttons start>
+      <button (click)="dismiss()">
+        <ion-icon name="md-close"> </ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="content">
+  <br>
+   <p text-center> Pull the slider to adjust your reading progress or submit the value directly through the input field. It will get automatically saved upon exiting.  </p>
+   <br>
+
+ <ion-item>
+   <ion-range min="0" max="{{book.pages}}" step="1" pin="true" dark debounce="400" [(ngModel)]="pages"> 
+       <ion-label range-left>0</ion-label>
+       <ion-label *ngIf="displayValue" range-right> {{displayValue}} </ion-label>
+   </ion-range>
+ </ion-item>
+ <br> <br>
+
+  <ion-item>
+    <ion-label primary class="page-label"> Current page: </ion-label>
+    <ion-input type="number" class="page-label"  [(ngModel)]="pages"></ion-input>
+  </ion-item>
+</ion-content>

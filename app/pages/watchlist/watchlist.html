@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-buttons end>
+      <button (click)="showSortAlert()">
+          <ion-icon name="more"></ion-icon>
+      </button>
+     </ion-buttons>
+    <ion-title>Read List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content" padding>
+
+  <ion-segment [(ngModel)]="book" (ionChange)="tabChange($event)">
+     <ion-segment-button value="watchlist">Read list</ion-segment-button>
+     <ion-segment-button value="favorites"> Reading </ion-segment-button>
+     <ion-segment-button value="read"> Read </ion-segment-button>
+  </ion-segment>
+
+  <ion-searchbar *ngIf ="filterNumber" padding-top  placeholder = "Filter between {{filterNumber}} items" [(ngModel)]="searchTerm"                       (ionInput)="setFilteredItems($event)" (ionClear)="onClear()"> </ion-searchbar>
+
+<div [ngSwitch]="book">
+
+    <ion-list *ngSwitchCase="'watchlist'">
+      <div class="text-center"> 
+        <ion-note class="no-item" *ngIf="items.length == 0"> No Items </ion-note>
+      </div>
+     <ion-item-sliding *ngFor="let item of items">
+
+        <ion-item (click)="showBook(item)" >
+             <ion-avatar item-left>
+                 <ion-img src="{{item.image}}"> </ion-img>
+             </ion-avatar>
+                 <h2 padding-top>{{item.title}}</h2>
+                 <p> {{item.authors}} </p>
+                 <p> Current page: {{item.currentpage}} </p> 
+        </ion-item>
+        
+        <ion-item-options side="right">
+           <button (click)="setProgress(item)" dark>
+              <ion-icon name="book"></ion-icon>
+           </button>
+
+           <button (click)="deleteBook(item)" danger>
+              <ion-icon name="trash"></ion-icon>
+          </button>         
+        </ion-item-options>
+
+
+     </ion-item-sliding>
+    </ion-list>
+
+ <ion-list padding-top *ngSwitchCase="'favorites'">
+       <div class="text-center"> 
+        <ion-note class="no-item" *ngIf="itemsFavorite.length == 0"> No Items </ion-note>
+      </div>
+
+     <ion-item-sliding *ngFor="let favorite of itemsFavorite">
+      <ion-item (click)="showBook(favorite)">
+           <ion-avatar item-left>
+               <ion-img src="{{favorite.image}}"> </ion-img>
+           </ion-avatar>
+                <h2 padding-top>{{favorite.title}}</h2>
+                <p>{{favorite.authors}}</p>
+          </ion-item>
+        
+           <ion-item-options side="right">
+               <button (click)="deleteFavoriteBook(favorite)" danger>
+                      <ion-icon name="trash"></ion-icon>
+                  </button>
+        </ion-item-options>
+     </ion-item-sliding>
+    </ion-list>
+
+    <ion-list padding-top *ngSwitchCase="'read'">
+      <div class="text-center"> 
+        <ion-note class="no-item" *ngIf="itemsRead.length == 0"> No Items </ion-note>
+      </div>
+     <ion-item-sliding *ngFor="let item of itemsRead">
+      <ion-item (click)="showBook(item)" >
+           <ion-avatar item-left>
+               <ion-img src="{{item.image}}"> </ion-img>
+           </ion-avatar>
+                <h2 padding-top>{{item.title}}</h2>
+                <p>{{item.authors}}</p>
+          </ion-item>
+        
+           <ion-item-options side="right">
+               <button (click)="deleteReadBook(item)" danger>
+                      <ion-icon name="trash"></ion-icon>
+                  </button>
+        </ion-item-options>
+     </ion-item-sliding>
+  </ion-list>
+
+  </div>
+</ion-content>

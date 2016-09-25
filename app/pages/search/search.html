@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Search</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content" padding>
+	<ion-searchbar debounce='400' (ionInput)="getItems($event)" (ionClear)="onClear($event)"></ion-searchbar> 
+
+	
+	 <ion-card *ngFor="let book of items">
+	 	 <ion-item>
+		    <ion-avatar item-left>
+		        <ion-img *ngIf="book.image" src="{{book.image.smallThumbnail}}"></ion-img>
+		    </ion-avatar>
+			   	<div class="card-title"> {{book.title}}</div>
+			    <div class="card-author" *ngIf="book.authors" > By: {{book.authors}}</div>
+	     </ion-item>
+	     <ion-row> </ion-row>
+	      <ion-card-content *ngIf="book.description">
+	        {{book.description | truncate:200}}
+	      </ion-card-content>
+
+	     <ion-row>
+		    <ion-col width-25>
+		      <button primary clear small (click)="addTo(book)">
+		        <ion-icon name="add"></ion-icon>
+		        	Add To
+		      </button>
+		    </ion-col>
+		    <ion-col> </ion-col>
+		    <ion-col width-40>
+		      <button primary clear small (click)="viewDetails(book)">
+		        <ion-icon name="information-circle"></ion-icon>
+		           View Details
+		      </button>
+		    </ion-col>
+		 </ion-row>
+
+	 </ion-card>
+
+	  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+	      <ion-infinite-scroll-content loadingSpinner="bubbles"> </ion-infinite-scroll-content>
+	 </ion-infinite-scroll>
+
+	<div class="text-center"> 
+	 	<ion-note class="no-item" *ngIf="items.length == 0"> No Items </ion-note>
+	</div>
+</ion-content>

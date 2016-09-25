@@ -1,0 +1,2 @@
+proxy="http://evo01648.evosoft.com:3128"
+rejectUnauthorized=false

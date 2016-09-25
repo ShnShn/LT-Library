@@ -1,0 +1,35 @@
+.content{
+ 
+	.selectable{
+	    -webkit-user-select: auto;
+	}
+
+	ion-title{
+		font-size:1.3em;
+	}
+
+	ion-list-header{
+		font-size : 1.3em;
+	}
+	.frame{
+	    white-space: nowrap;
+    	text-align: center;
+        margin: 0.9em 0;
+	}
+	.image{
+	    display: inline-block;
+	    vertical-align: middle;
+	    width: 45%; 
+	}
+	ion-note{
+	      text-align: justify;
+    	  text-justify: inter-word;
+    	  font-size: 0.9em;
+    	  color: #717475!important; 
+	}
+	
+	ion-item{
+		font-size: 0.95em;
+	}
+
+}

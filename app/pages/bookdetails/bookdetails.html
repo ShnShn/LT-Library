@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>{{book.title | truncate : 30}}</ion-title>
+    <ion-buttons end>
+	    <button (click)="openPopUp($event)">
+	      <ion-icon name="md-more"></ion-icon>
+	    </button>
+	</ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content" overflow-scroll="true" padding>
+ <div class= "selectable">
+	<div class= "frame">
+		<ion-img class="image" *ngIf="book.image" src="{{book.image.smallThumbnail}}"> </ion-img>
+	</div>
+
+	<div class= "frame">
+		<ion-img class="image" *ngIf="!book.image" src="http://www.kober.com/images/nobook.gif" width="180px" height="280px"> </ion-img>
+	</div>	 	 
+
+	<ion-list-header> 
+	 	<ion-icon name="book" item-left></ion-icon> 
+	 	  Book Details
+	 </ion-list-header>
+	 
+	      <ion-list>
+	        <ion-item> Title
+	          <ion-note *ngIf="book.title" item-right>{{book.title | truncate : 40}}</ion-note>
+	        </ion-item>
+	         <ion-item> Subtitle
+	          <ion-note *ngIf="book.subtitle"  item-right>{{book.subtitle | truncate : 30}}</ion-note>
+	           <ion-note *ngIf="!book.subtitle"  item-right>N/a</ion-note>
+	        </ion-item>
+	        <ion-item> Authors
+	          <ion-note *ngIf="book.authors"  item-right>{{book.authors}}</ion-note>
+	          <ion-note *ngIf="!book.authors"  item-right>N/a</ion-note>
+	        </ion-item>
+	        <ion-item> ISBN
+	          <ion-note *ngIf="book.isbn"  item-right>{{book.isbn}}</ion-note>
+	        </ion-item>
+	        <ion-item> Categories
+	          <ion-note *ngIf="book.category"  item-right>{{book.category}}</ion-note>
+	           <ion-note *ngIf="!book.category"  item-right>N/a</ion-note>
+	        </ion-item>
+	        <ion-item> Number of Pages
+	          <ion-note *ngIf="book.pages"  item-right>{{book.pages}}</ion-note>
+	          <ion-note *ngIf="!book.pages"  item-right>N/a</ion-note>
+	        </ion-item>
+	        <ion-item> Published Date
+	          <ion-note *ngIf="book.publishedDate"  item-right>{{book.publishedDate}}</ion-note>
+	           <ion-note *ngIf="!book.publishedDate"  item-right>N/a</ion-note>
+	        </ion-item>
+	        <ion-item> Average Rating
+	          <ion-note *ngIf="book.averageRating"  item-right>{{book.averageRating}}/5</ion-note>
+	          <ion-note *ngIf="!book.averageRating"  item-right>N/a</ion-note>
+	        </ion-item>
+	        <ion-item> Maturity Rating
+	          <ion-note  *ngIf="book.maturityRating" item-right>{{book.maturityRating}}</ion-note>
+	          <ion-note  *ngIf="!book.maturityRating" item-right>N/a</ion-note>
+	        </ion-item>
+	      </ion-list>
+
+     <ion-list-header>  <ion-icon name="book" item-left> </ion-icon> Description  </ion-list-header>
+	    <ion-list>
+	        <ion-item> 
+	          <ion-note *ngIf="book.description" item-right>{{book.description}}</ion-note>
+	          <ion-note *ngIf="!book.description">Not Available</ion-note>
+	        </ion-item>
+	  </ion-list>
+  </div>
+</ion-content>
