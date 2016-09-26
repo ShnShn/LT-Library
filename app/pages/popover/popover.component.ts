@@ -11,12 +11,16 @@ import { StorageService } from '../../services/storage.service'
 
 export class PopOverComponent {
  book : any = {};
+ selectedBookId : string;
 
   constructor(public navCtrl: NavController, private navParams : NavParams, private storageService: StorageService) {}
 
 
   ngOnInit() {
     this.book = this.navParams.data.book;
+
+    if (this.navParams.data.selectedBookId)
+      this.selectedBookId = this.navParams.data.selectedBookId
   }
   
   share(){
@@ -28,24 +32,27 @@ export class PopOverComponent {
   }
 
   addTo(){
+    this.storageService.globalCheckIfInDB(this.book, this.selectedBookId);
     this.storageService.actionHandler(this.book, 'watchlist', 'To Read List')
   }
 
   addToFav(){
-    this.storageService.actionHandler(this.book, 'favorites', 'Favorites')
+    this.storageService.globalCheckIfInDB(this.book, this.selectedBookId);
+    this.storageService.actionHandler(this.book, 'favorites', 'Reading')
   }
 
   addToRead(){
+    this.storageService.globalCheckIfInDB(this.book, this.selectedBookId);
     this.storageService.actionHandler(this.book, 'read', 'Read')
   }
 
 
-  openElefant(){
+/*  openElefant(){
     let browser = InAppBrowser.open('https://elefant.ro', '_system');
   }
 
   openCarturesti(){
      let browser = InAppBrowser.open('https://carturesti.ro', '_system');
-  }
+  } */
 
 }

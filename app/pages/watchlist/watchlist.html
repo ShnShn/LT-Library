@@ -21,7 +21,7 @@
      <ion-segment-button value="read"> Read </ion-segment-button>
   </ion-segment>
 
-  <ion-searchbar *ngIf ="filterNumber" padding-top  placeholder = "Filter between {{filterNumber}} items" [(ngModel)]="searchTerm"                       (ionInput)="setFilteredItems($event)" (ionClear)="onClear()"> </ion-searchbar>
+  <ion-searchbar *ngIf ="filterNumber" padding-top  placeholder = "Filter between {{filterNumber}} item(s)" [(ngModel)]="searchTerm"                       (ionInput)="setFilteredItems($event)" (ionClear)="onClear()"> </ion-searchbar>
 
 <div [ngSwitch]="book">
 
@@ -37,14 +37,9 @@
              </ion-avatar>
                  <h2 padding-top>{{item.title}}</h2>
                  <p> {{item.authors}} </p>
-                 <p> Current page: {{item.currentpage}} </p> 
         </ion-item>
         
         <ion-item-options side="right">
-           <button (click)="setProgress(item)" dark>
-              <ion-icon name="book"></ion-icon>
-           </button>
-
            <button (click)="deleteBook(item)" danger>
               <ion-icon name="trash"></ion-icon>
           </button>         
@@ -66,12 +61,17 @@
            </ion-avatar>
                 <h2 padding-top>{{favorite.title}}</h2>
                 <p>{{favorite.authors}}</p>
+                <p> Current page: {{favorite.currentpage}} </p> 
           </ion-item>
         
            <ion-item-options side="right">
+               <button (click)="setProgress(favorite)" dark>
+                  <ion-icon name="book"></ion-icon>
+               </button>
+
                <button (click)="deleteFavoriteBook(favorite)" danger>
                       <ion-icon name="trash"></ion-icon>
-                  </button>
+              </button>
         </ion-item-options>
      </ion-item-sliding>
     </ion-list>

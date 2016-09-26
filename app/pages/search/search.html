@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="content" padding>
-	<ion-searchbar debounce='400' (ionInput)="getItems($event)" (ionClear)="onClear($event)"></ion-searchbar> 
+	<ion-searchbar debounce='400' (ionInput)="getItems($event)" (ionClear)="onClear()"></ion-searchbar> 
 
 	
 	 <ion-card *ngFor="let book of items">

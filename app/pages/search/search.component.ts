@@ -25,13 +25,15 @@ export class SearchPageComponent {
   			.distinctUntilChanged()
   			.subscribe(data =>	{
                     console.log(data);
-                    this.items = this.searchService.mapBooks(data.items)
+                    if (data.items)
+                     this.items = this.searchService.mapBooks(data.items)
+                    else return;
                   },
   					       error => console.log(error))
    }
 
-  onClear(ev){
-    this.items=[];
+  onClear(){
+    this.items = [];
   }
 
   doInfinite(infiniteScroll){
@@ -40,13 +42,17 @@ export class SearchPageComponent {
     this.searchService.searchItems(this.searchString, this.count*5)
         .distinctUntilChanged()
         .subscribe(data => 
-                  {
-                    let tempData = this.searchService.mapBooks(data.items)
-                    tempData.forEach(book => {
-                      this.items.push(book);
-                    })
-
-                    infiniteScroll.complete();
+                  { 
+                    if(data.items){
+                        let tempData = this.searchService.mapBooks(data.items)
+                        tempData.forEach(book => {
+                          this.items.push(book);
+                        })
+                        infiniteScroll.complete();
+                    }
+                    else{
+                      infiniteScroll.complete();
+                    }
                  },
                  error => console.log(error))
   }

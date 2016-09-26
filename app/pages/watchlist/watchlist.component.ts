@@ -20,7 +20,7 @@ export class WatchListPageComponent {
   filterNumber : number;
   book : string;
   searchTerm : string;
-   once : boolean = false;
+  once : boolean = false;
   sortTypeTitle : boolean = true;
   sortTypeAuthor: boolean = true;
 
@@ -64,25 +64,25 @@ export class WatchListPageComponent {
 
   //delete //
   deleteBook(book){
-    this.storageService.deleteBook(book).then(
+    this.storageService.deleteBook('watchlist',book, book.id).then(
         data => this.loadToReadList()
       )
   }
 
   deleteFavoriteBook(book){
-    this.storageService.deleteFavoriteBook(book).then(
+    this.storageService.deleteBook('favorites',book, book.id).then(
         data => this.loadFavoriteList()
       )
   }
 
   deleteReadBook(book){
-    this.storageService.deleteReadBook(book).then(
+    this.storageService.deleteBook('read', book, book.id).then(
         data => this.loadReadList()
       )
   }
 
   showBook(selectedBook){
-    //console.log(book.isbn);
+
       let book = {}; 
       this.createLoading()
       this.searchTerm = '';
@@ -90,7 +90,7 @@ export class WatchListPageComponent {
       this.searchService.searchSpecificItem(selectedBook.link)
           .subscribe(data =>  book = this.searchService.getSpecificAttribute(data), 
                      error => console.log(error),
-                      () => this.navCtrl.push(BookDetailsComponent,{book})) 
+                      () => this.navCtrl.push(BookDetailsComponent,{book, selectedBook})) 
 
     }
 
@@ -142,24 +142,34 @@ export class WatchListPageComponent {
        if( column == 'title') {
             if(this.sortTypeTitle){
                   this.storageService.sortBooks(table, column, 'ASC').then(
-                    data => this.switchSort(table, data)     
+                    data => {this.switchSort(table, data)
+                             this.storageService.showSortToast(column, 'Ascending')}     
                   )
                   this.sortTypeTitle = false; 
                 }else {
                   this.storageService.sortBooks(this.book, column, 'DESC').then(
-                    data =>  this.switchSort(table, data)        
+                    data => {
+                             this.switchSort(table, data);
+                             this.storageService.showSortToast(column, 'Descending')
+                           }        
                   )
                   this.sortTypeTitle = true; 
                 } 
        }else{
              if(this.sortTypeAuthor){
                   this.storageService.sortBooks(table, column, 'ASC').then(
-                    data =>  this.switchSort(table, data)        
+                    data =>  {
+                            this.switchSort(table, data);
+                            this.storageService.showSortToast(column, 'Ascending')
+                            }        
                   )
                   this.sortTypeAuthor = false; 
                 }else {
                   this.storageService.sortBooks(this.book, column, 'DESC').then(
-                    data =>  this.switchSort(table, data)        
+                    data => {
+                           this.switchSort(table, data)
+                           this.storageService.showSortToast(column, 'Descending')  
+                         }      
                   )
                   this.sortTypeAuthor = true; 
                 } 
@@ -253,5 +263,6 @@ export class WatchListPageComponent {
       this.loadFavoriteList();
       this.loadReadList();
     }
+
 
 }

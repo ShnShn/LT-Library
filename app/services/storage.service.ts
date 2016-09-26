@@ -35,7 +35,7 @@ export class StorageService {
 
   // Save a new book to the DB Insert
   saveBook(book, database) {
-   
+    
     let sql = 'INSERT INTO ' + database +  '(title, link, image, authors, currentpage, pages) VALUES (?,?,?,?,?,?)';
     // validation
     if (!book.image) {
@@ -47,29 +47,23 @@ export class StorageService {
   }
 
   //delete books
-  deleteBook(book){
-    let sql = 'DELETE FROM watchlist WHERE id = \"' + book.id + '\"';
+  deleteBook(db, book, id){
+    let sql = 'DELETE FROM ' +  db + ' WHERE id = \"' + id + '\"';
     return this.storage.query(sql);
   }  
-
-  deleteFavoriteBook(book){
-    let sql = 'DELETE FROM favorites WHERE id = \"' + book.id + '\"';
-    return this.storage.query(sql);
-  }  
-
-   deleteReadBook(book){
-    let sql = 'DELETE FROM read WHERE id = \"' + book.id + '\"';
-    return this.storage.query(sql);
-  }
 
   updatePage(value, id){
-     let sql = 'UPDATE watchlist SET currentpage = \"' + value + '\" WHERE id = \"' + id + '\"';
+     let sql = 'UPDATE favorites SET currentpage = \"' + value + '\" WHERE id = \"' + id + '\"';
      return this.storage.query(sql);
   }
 
-  checkExistsToRead(book, database) : any{
+  sortBooks(table, column, mode){ 
+     return this.storage.query('SELECT * FROM '+ table +' ORDER BY ' + column + ' ' + mode);
+  }
+
+  checkExistsInDB(book, database) : any{
         //console.log(book);     
-        let exists = false;
+        let exists = false;  
 
         return new Promise( resolve => this.storage.query('SELECT * FROM ' + database).then(
               data =>{
@@ -80,16 +74,37 @@ export class StorageService {
                          break;
                        }
                    }
-           console.log('In storage: '+ exists);
-           resolve(exists)
+           console.log('In storage: '+ exists + ' in database ' + database);
+           let returnArray = [exists, book.id];
+           resolve(returnArray)
+           // resolve(exists)
         })
        )    
   }
 
+   globalCheckIfInDB(book, id){
+
+     let db = ['watchlist', 'favorites', 'read']
+
+     db.forEach(database => {
+         this.checkExistsInDB(book, database).then(
+                     data => {                   
+                           if (data) {
+                                this.deleteBook(database, book, id).then(success =>
+                                 {  
+                                   //console.log('success')
+                                   return;
+                                 }, error => console.log(error));
+                              } 
+                           },
+               error => console.log(error));
+     })
+  }
+
  actionHandler(book, database, category){
      let exist = false;
-     this.checkExistsToRead(book, database).then(data => {
-              exist = data
+     this.checkExistsInDB(book, database).then(data => {
+              exist = data[0]
               if (!exist) 
                   this.saveBook(book, database)
                                 .then(data => this.showToast(book.title, category))   
@@ -115,7 +130,7 @@ export class StorageService {
         {
           text: 'Reading',
           icon: 'bookmark',         
-          handler: () =>   this.actionHandler(book, 'favorites', 'Favorites')  
+          handler: () =>   this.actionHandler(book, 'favorites', 'Reading')  
         },
 
         {
@@ -169,8 +184,18 @@ export class StorageService {
       toast.present();
   } 
 
-  sortBooks(table, column, mode){ 
-     return this.storage.query('SELECT * FROM '+ table +' ORDER BY ' + column + ' ' + mode);
+
+
+  showSortToast(title, mode){
+      let toast = this.toastCtrl.create({
+        message: 'Sorted ' + mode + ' by ' + title,
+        duration: 1000,
+        position: 'bottom'
+      });
+
+      toast.present();
   }
+
+
 
 }
